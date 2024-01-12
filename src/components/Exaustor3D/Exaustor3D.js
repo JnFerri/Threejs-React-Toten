@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -9,6 +9,7 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import styled from "styled-components";
+
 
 const ExaustorContainer = styled.div`
 width: 80%;
@@ -23,12 +24,13 @@ function Exaustor3D(){
         
         // Cria a cena
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#4682B4');
+        scene.background = null;
 
         // Cria a câmera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-
+        const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 2;
+        camera.position.x = -2;
+        camera.position.y = 4;
         // Cria o renderizador
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha:true, });
         mountRef.current.appendChild(renderer.domElement);
@@ -157,6 +159,7 @@ scene.traverse((obj) => {
         // Animação
         const animate = function () {
             requestAnimationFrame(animate);
+            scene.rotation.y += 0.001;
             renderer.render(scene, camera);
         };
 
