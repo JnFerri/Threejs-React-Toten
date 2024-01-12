@@ -12,13 +12,10 @@ import styled from "styled-components";
 
 
 const ExaustorContainer = styled.div`
-width: 50%;
+width: 100%;
 height: 60vh;
 border: black 0.1px solid;
 box-shadow: 5px 5px 5px black;
-border-radius: 30px;
-margin: 30px 30px;
-background-color: #01488a;
 `
 
 function Exaustor3D(){
@@ -29,7 +26,7 @@ function Exaustor3D(){
         
         // Cria a cena
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color('#01488a');
+        scene.background = null;
 
         // Cria a câmera
         const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
