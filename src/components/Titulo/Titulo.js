@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 const TituloContainer = styled.h1`
-font-size : 26px;
+font-size : 34px;
 font-weight : bold;
 text-tranform : uppercase;
 color : white;

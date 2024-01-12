@@ -12,10 +12,8 @@ import styled from "styled-components";
 
 
 const ExaustorContainer = styled.div`
-width: 100%;
-height: 60vh;
-border: black 0.1px solid;
-box-shadow: 5px 5px 5px black;
+width: 60%;
+height: 90vh;
 `
 
 function Exaustor3D(){
@@ -38,7 +36,7 @@ function Exaustor3D(){
         mountRef.current.appendChild(renderer.domElement);
         renderer.domElement.style.borderRadius = '30px'
         renderer.setSize(mountRef.current.clientWidth ,mountRef.current.clientHeight );
-    
+        renderer.shadowMap.enabled = true
         
         // Adiciona uma geometria
         const loader = new GLTFLoader();
@@ -52,19 +50,30 @@ function Exaustor3D(){
         
         const controls = new OrbitControls( camera, renderer.domElement );
         
-        controls.target.setY(1)
+        controls.target.setY(1.3)
 controls.update()
 loader.load( './assets/files_3d/exaustor_gltf/exaustor.gltf', function ( gltf ) {
+    
     scene.add( gltf.scene );
     
+    gltf.scene.traverse((object) => {
+        if (object.isMesh) {
+            object.castShadow = true;
+            object.receiveShadow = true;
+        }
+    });
     
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // cor branca, intensidade 0.5
+    ambientLight.castShadow = true
     scene.add(ambientLight);
+    
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.);
     directionalLight.position.set(10, -10, 5);
+    directionalLight.castShadow = true
     scene.add(directionalLight);
 
+    scene.castShadow = true;
 
     const rgbeLoader = new RGBELoader();
     const pmremGenerator = new PMREMGenerator(renderer);
@@ -146,7 +155,7 @@ composer.addPass(sharpenPass);
 
 renderer.toneMapping = THREE.ReinhardToneMapping; // Ou outro algoritmo de sua escolha
 renderer.toneMappingExposure = 1.0; // Ajuste conforme necessário
-
+renderer.shadowMap.enabled = true;
 scene.traverse((obj) => {
     if (obj.material) {
       obj.material.needsUpdate = true;

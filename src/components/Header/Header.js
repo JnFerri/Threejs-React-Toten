@@ -11,7 +11,8 @@ const HeaderContainer = styled.header`
 display:flex;
 align-items:center;
 justify-content:space-between;
-background-color: white;
+background-color: #25364f;
+padding: 0 40px
 `
 
 function Header(){

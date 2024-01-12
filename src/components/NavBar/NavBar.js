@@ -7,9 +7,10 @@ const NavBarContainer = styled.ul`
 `
 
 const Opcao = styled.li`
-    margin-right:10px;
+    margin-right:30px;
     font-size: 16px;
     list-style: none;
+    color: white;
 `
 
 const opcoes = ['Inicio', 'Produtos', 'Catalogos']
