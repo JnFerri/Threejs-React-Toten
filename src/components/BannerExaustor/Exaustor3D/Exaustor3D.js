@@ -12,8 +12,13 @@ import styled from "styled-components";
 
 
 const ExaustorContainer = styled.div`
-width: 80%;
-height: 100vh;
+width: 50%;
+height: 60vh;
+border: black 0.1px solid;
+box-shadow: 5px 5px 5px black;
+border-radius: 30px;
+margin: 30px 30px;
+background-color: #01488a;
 `
 
 function Exaustor3D(){
@@ -24,7 +29,7 @@ function Exaustor3D(){
         
         // Cria a cena
         const scene = new THREE.Scene();
-        scene.background = null;
+        scene.background = new THREE.Color('#01488a');
 
         // Cria a câmera
         const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -34,6 +39,7 @@ function Exaustor3D(){
         // Cria o renderizador
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha:true, });
         mountRef.current.appendChild(renderer.domElement);
+        renderer.domElement.style.borderRadius = '30px'
         renderer.setSize(mountRef.current.clientWidth ,mountRef.current.clientHeight );
     
         
@@ -55,10 +61,10 @@ loader.load( './assets/files_3d/exaustor_gltf/exaustor.gltf', function ( gltf ) 
     scene.add( gltf.scene );
     
     
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // cor branca, intensidade 0.5
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // cor branca, intensidade 0.5
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.);
     directionalLight.position.set(10, -10, 5);
     scene.add(directionalLight);
 
@@ -100,7 +106,7 @@ loader.load( './assets/files_3d/exaustor_gltf/exaustor.gltf', function ( gltf ) 
                 vec4 texture = texture2D(tDiffuse, vUv);
 
                 // Aplicar correções de cor
-                texture.rgb = pow(texture.rgb, vec3(0.9)); // Exemplo: ajuste de gama
+                texture.rgb = pow(texture.rgb, vec3(2)); // Exemplo: ajuste de gama
 
                 gl_FragColor = texture;
             }
@@ -142,7 +148,7 @@ loader.load( './assets/files_3d/exaustor_gltf/exaustor.gltf', function ( gltf ) 
 composer.addPass(sharpenPass);
 
 renderer.toneMapping = THREE.ReinhardToneMapping; // Ou outro algoritmo de sua escolha
-renderer.toneMappingExposure = 2.0; // Ajuste conforme necessário
+renderer.toneMappingExposure = 1.0; // Ajuste conforme necessário
 
 scene.traverse((obj) => {
     if (obj.material) {
