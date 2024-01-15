@@ -9,7 +9,7 @@ const ParagrafoContainer = styled.p`
 
 function Paragrafo(props){
     return(
-        <ParagrafoContainer>{props.children}</ParagrafoContainer>
+        <ParagrafoContainer >{props.children}</ParagrafoContainer>
     )
 }
 
